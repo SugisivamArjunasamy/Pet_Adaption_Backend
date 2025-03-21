@@ -13,4 +13,7 @@ public class Message {
 
     @Column(nullable = false,length = 200)
     private String messaegDetails;
+
+    @Column(nullable = false,length = 100)
+    private String date;
 }

@@ -12,4 +12,13 @@ public class User {
 
     @Column(nullable = false,length = 100)
     private String userName;
+
+    @Column(nullable = false,length = 200)
+    private String address;
+
+    @Column(nullable = false,length = 100)
+    private String email;
+
+    @Column(nullable = false)
+    private int passWord;
 }
