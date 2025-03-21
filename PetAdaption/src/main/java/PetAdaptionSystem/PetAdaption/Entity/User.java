@@ -20,7 +20,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String password;
+    private String password = "default_password";
 
     @Column(nullable = false, length = 50)
     private String role;  // Can be "Admin" or "Adopter"
