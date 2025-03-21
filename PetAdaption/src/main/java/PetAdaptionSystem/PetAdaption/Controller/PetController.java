@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -36,8 +37,20 @@ public class PetController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePet(@PathVariable int id) {
-        petService.deletePet(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Pet> deletePet(@PathVariable int id) {
+        Optional<Pet> pet = petService.getPetById(id);
+        if (pet.isPresent()) {
+            petService.deletePet(id);
+            return ResponseEntity.ok(pet.get()); // Return deleted pet as JSON
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Pet> updatePetPartially(@PathVariable int id, @RequestBody Map<String, Object> updates) {
+        Optional<Pet> updatedPet = petService.updatePetFields(id, updates);
+        return updatedPet.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
