@@ -12,4 +12,10 @@ public class Adoption {
 
     @Column(nullable = false,length = 100)
     private String adoptionDetails;
+
+    @Column(nullable = false)
+    private String date;
+
+    @Column(nullable = false,length = 100)
+    private String status;
 }

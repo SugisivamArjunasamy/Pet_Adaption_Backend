@@ -12,4 +12,7 @@ public class Payment {
 
     @Column(nullable = false,length = 100)
     private String paymentDeatails;
+
+    @Column(nullable = false,length = 100)
+    private String status;
 }
