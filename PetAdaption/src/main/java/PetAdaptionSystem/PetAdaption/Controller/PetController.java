@@ -2,6 +2,8 @@ package PetAdaptionSystem.PetAdaption.Controller;
 
 import PetAdaptionSystem.PetAdaption.Entity.Pet;
 import PetAdaptionSystem.PetAdaption.Service.PetService;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class PetController {
 
     private final PetService petService;
+    @Setter
+    @Getter
+    private String breed = "Unknown";
 
     public PetController(PetService petService) {
         this.petService = petService;
@@ -53,4 +58,5 @@ public class PetController {
         Optional<Pet> updatedPet = petService.updatePetFields(id, updates);
         return updatedPet.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 }

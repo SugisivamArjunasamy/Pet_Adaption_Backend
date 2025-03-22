@@ -4,16 +4,16 @@ import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.*;
 
-@Getter
-@Setter
+@Data
+@Entity
+@Table(name = "pet_table")
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "Pet_Table")
 public class Pet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int petId;
+    private Long petId;
 
     @Column(nullable = false, length = 100)
     @NotBlank(message = "Pet name is required")
@@ -29,11 +29,11 @@ public class Pet {
 
     @Column(nullable = false, length = 100)
     @NotBlank(message = "Breed is required")
-    private String breed = "Default";
+    private String breed;
 
     @Column(nullable = false, length = 200)
     @NotBlank(message = "Description is required")
-    private String description = "No description provided";
+    private String description;
 
     @Column(nullable = false, length = 100)
     @NotBlank(message = "Status is required")
@@ -42,14 +42,4 @@ public class Pet {
     @Column(nullable = false)
     @Min(value = 0, message = "Amount cannot be negative")
     private int amount;
-
-    private boolean isAdopted;
-
-    public boolean isAdopted() {
-        return isAdopted;
-    }
-
-    public void setAdopted(boolean adopted) {
-        this.isAdopted = adopted;
-    }
 }

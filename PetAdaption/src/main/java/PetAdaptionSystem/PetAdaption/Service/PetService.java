@@ -22,7 +22,7 @@ public class PetService {
     }
 
     public Optional<Pet> getPetById(int id) {
-        return petRepository.findById(id);
+        return petRepository.findById((long) id);
     }
 
     public Pet addPet(Pet pet) {
@@ -30,11 +30,11 @@ public class PetService {
     }
 
     public void deletePet(int id) {
-        petRepository.deleteById(id);
+        petRepository.deleteById((long) id);
     }
 
     public Optional<Pet> updatePetFields(int id, Map<String, Object> updates) {
-        Optional<Pet> optionalPet = petRepository.findById(id);
+        Optional<Pet> optionalPet = petRepository.findById((long) id);
         if (optionalPet.isPresent()) {
             Pet pet = optionalPet.get();
 
