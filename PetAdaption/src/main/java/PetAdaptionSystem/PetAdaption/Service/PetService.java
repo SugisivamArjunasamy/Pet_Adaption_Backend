@@ -18,7 +18,7 @@ public class PetService {
     }
 
     public List<Pet> getAllPets() {
-        return petRepository.findAll(); // ✅ Corrected this method
+        return petRepository.findAll();
     }
 
     public Optional<Pet> getPetById(int id) {
@@ -42,9 +42,9 @@ public class PetService {
                 switch (key) {
                     case "petName": pet.setPetName((String) value); break;
                     case "petAge": pet.setPetAge((Integer) value); break;
-                    case "catogori": pet.setCatogori((String) value); break;
-                    case "bread": pet.setBread((String) value); break;
-                    case "discription": pet.setDiscription((String) value); break;
+                    case "catogori": pet.setCategory((String) value); break;
+                    case "bread": pet.setBreed((String) value); break;
+                    case "discription": pet.setDescription((String) value); break;
                     case "status": pet.setStatus((String) value); break;
                     case "amount": pet.setAmount((Integer) value); break;
                 }

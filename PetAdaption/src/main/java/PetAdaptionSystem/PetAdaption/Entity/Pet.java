@@ -17,13 +17,13 @@ public class Pet {
     private int petAge;
 
     @Column(nullable = false, length = 100)
-    private String catogori;
+    private String category;  // ✅ Fixed Typo
 
     @Column(nullable = false, length = 100)
-    private String bread;
+    private String breed;  // ✅ Fixed Typo
 
     @Column(nullable = false, length = 200)
-    private String discription;
+    private String description;  // ✅ Fixed Typo
 
     @Column(nullable = false, length = 100)
     private String status;
@@ -56,28 +56,28 @@ public class Pet {
         this.petAge = petAge;
     }
 
-    public String getCatogori() {
-        return catogori;
+    public String getCategory() {  // ✅ Fixed Typo
+        return category;
     }
 
-    public void setCatogori(String catogori) {
-        this.catogori = catogori;
+    public void setCategory(String category) {  // ✅ Fixed Typo
+        this.category = category;
     }
 
-    public String getBread() {
-        return bread;
+    public String getBreed() {  // ✅ Fixed Typo
+        return breed;
     }
 
-    public void setBread(String bread) {
-        this.bread = bread;
+    public void setBreed(String breed) {  // ✅ Fixed Typo
+        this.breed = breed;
     }
 
-    public String getDiscription() {
-        return discription;
+    public String getDescription() {  // ✅ Fixed Typo
+        return description;
     }
 
-    public void setDiscription(String discription) {
-        this.discription = discription;
+    public void setDescription(String description) {  // ✅ Fixed Typo
+        this.description = description;
     }
 
     public String getStatus() {
