@@ -1,98 +1,55 @@
 package PetAdaptionSystem.PetAdaption.Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import jakarta.validation.constraints.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Pet_Table")
 public class Pet {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int petId;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "Pet name is required")
     private String petName;
 
     @Column(nullable = false)
+    @Min(value = 0, message = "Pet age cannot be negative")
     private int petAge;
 
     @Column(nullable = false, length = 100)
-    private String category;  // ✅ Fixed Typo
+    @NotBlank(message = "Category is required")
+    private String category;
 
     @Column(nullable = false, length = 100)
-    private String breed;  // ✅ Fixed Typo
+    @NotBlank(message = "Breed is required")
+    private String breed = "Default";
 
     @Column(nullable = false, length = 200)
-    private String description;  // ✅ Fixed Typo
+    @NotBlank(message = "Description is required")
+    private String description = "No description provided";
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "Status is required")
     private String status;
 
     @Column(nullable = false)
+    @Min(value = 0, message = "Amount cannot be negative")
     private int amount;
 
-    // Getters and Setters
-    public int getPetId() {
-        return petId;
+    private boolean isAdopted;
+
+    public boolean isAdopted() {
+        return isAdopted;
     }
 
-    public void setPetId(int petId) {
-        this.petId = petId;
-    }
-
-    public String getPetName() {
-        return petName;
-    }
-
-    public void setPetName(String petName) {
-        this.petName = petName;
-    }
-
-    public int getPetAge() {
-        return petAge;
-    }
-
-    public void setPetAge(int petAge) {
-        this.petAge = petAge;
-    }
-
-    public String getCategory() {  // ✅ Fixed Typo
-        return category;
-    }
-
-    public void setCategory(String category) {  // ✅ Fixed Typo
-        this.category = category;
-    }
-
-    public String getBreed() {  // ✅ Fixed Typo
-        return breed;
-    }
-
-    public void setBreed(String breed) {  // ✅ Fixed Typo
-        this.breed = breed;
-    }
-
-    public String getDescription() {  // ✅ Fixed Typo
-        return description;
-    }
-
-    public void setDescription(String description) {  // ✅ Fixed Typo
-        this.description = description;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setAdopted(boolean adopted) {
+        this.isAdopted = adopted;
     }
 }
