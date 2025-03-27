@@ -15,19 +15,19 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    // Submit a review
+
     @PostMapping("/submit")
     public Review submitReview(@RequestBody Review review) {
         return reviewService.submitReview(review);
     }
 
-    // Get all reviews for a breed
+
     @GetMapping("/{breed}")
     public List<Review> getReviewsByBreed(@PathVariable String breed) {
         return reviewService.getReviewsByBreed(breed);
     }
 
-    // Get average rating for a breed
+
     @GetMapping("/{breed}/average-rating")
     public double getAverageRating(@PathVariable String breed) {
         return reviewService.getAverageRating(breed);

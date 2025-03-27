@@ -32,7 +32,7 @@ public class Message {
     @Column(nullable = false)
     private boolean isRead = false;
 
-    // New field to support message replies (if null, it's a new message)
+
     @ManyToOne
     @JoinColumn(name = "reply_to_id")
     private Message replyTo;

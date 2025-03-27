@@ -30,6 +30,6 @@ public class AdoptionRequest {
     private String adopterEmail;
 
     @Column(nullable = false, length = 20)
-    private String status = "Pending"; // Default status
+    private String status = "Pending";
 
 }

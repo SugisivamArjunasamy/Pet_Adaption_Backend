@@ -8,7 +8,7 @@ import lombok.Setter;
 @Table(name="User")
 public class User {
 
-    // Getters and Setters
+
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +35,9 @@ public class User {
     @Setter
     @Getter
     @Column(nullable = false, length = 50)
-    private String role;  // Can be "Admin" or "Adopter"
+    private String role;
 
-    // Constructors
+
     public User() {}
 
     public User(String userName, String address, String email, String password, String role) {

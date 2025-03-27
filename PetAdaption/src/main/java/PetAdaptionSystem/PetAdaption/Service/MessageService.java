@@ -14,12 +14,11 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
-    // Send a new message
+
     public Message sendMessage(Message message) {
         return messageRepository.save(message);
     }
 
-    // Reply to a message
     public Message replyToMessage(Long senderId, Long receiverId, String content, Long replyToId) {
         Optional<Message> parentMessage = messageRepository.findById(replyToId);
         if (parentMessage.isEmpty()) {
@@ -35,7 +34,6 @@ public class MessageService {
         return messageRepository.save(replyMessage);
     }
 
-    // Get chat messages between two users
     public List<Message> getChatMessages(Long user1, Long user2) {
         return messageRepository.findMessagesBetweenUsers(user1, user2);
     }

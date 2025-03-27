@@ -49,7 +49,7 @@ public class UserController {
         Optional<User> user = userService.getUserById(id);
         if (user.isPresent()) {
             userService.deleteUser(id);
-            return ResponseEntity.ok(user.get()); // Returning deleted user data
+            return ResponseEntity.ok(user.get());
         }
         return ResponseEntity.notFound().build();
     }
@@ -60,10 +60,10 @@ public class UserController {
         if (user.isPresent()) {
             User foundUser = user.get();
 
-            // Prepare response with email & password
+
             Map<String, String> response = new HashMap<>();
             response.put("email", foundUser.getEmail());
-            response.put("password", foundUser.getPassword()); // Ensure password is hashed!
+            response.put("password", foundUser.getPassword());
 
             return ResponseEntity.ok(response);
         } else {
