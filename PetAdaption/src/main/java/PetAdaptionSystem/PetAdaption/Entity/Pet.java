@@ -42,4 +42,8 @@ public class Pet {
     @Column(nullable = false)
     @Min(value = 0, message = "Amount cannot be negative")
     private int amount;
+
+    @Column(length = 255)
+    @NotBlank(message = "Image URL is required")
+    private String imageUrl;
 }

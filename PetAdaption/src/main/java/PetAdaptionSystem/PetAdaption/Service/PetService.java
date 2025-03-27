@@ -47,6 +47,7 @@ public class PetService {
                     case "discription": pet.setDescription((String) value); break;
                     case "status": pet.setStatus((String) value); break;
                     case "amount": pet.setAmount((Integer) value); break;
+                    case "imageUrl": pet.setImageUrl((String) value); break;
                 }
             });
 
