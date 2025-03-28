@@ -21,20 +21,20 @@ public class PetService {
         return petRepository.findAll();
     }
 
-    public Optional<Pet> getPetById(int id) {
-        return petRepository.findById((long) id);
+    public Optional<Pet> getPetById(Long id) {
+        return petRepository.findById(id);
     }
 
     public Pet addPet(Pet pet) {
         return petRepository.save(pet);
     }
 
-    public void deletePet(int id) {
-        petRepository.deleteById((long) id);
+    public void deletePet(Long id) {
+        petRepository.deleteById(id);
     }
 
-    public Optional<Pet> updatePetFields(int id, Map<String, Object> updates) {
-        Optional<Pet> optionalPet = petRepository.findById((long) id);
+    public Optional<Pet> updatePetFields(Long id, Map<String, Object> updates) {
+        Optional<Pet> optionalPet = petRepository.findById(id);
         if (optionalPet.isPresent()) {
             Pet pet = optionalPet.get();
 
@@ -42,10 +42,10 @@ public class PetService {
                 switch (key) {
                     case "petName": pet.setPetName((String) value); break;
                     case "petAge": pet.setPetAge((Integer) value); break;
-                    case "catogori": pet.setCategory((String) value); break;
-                    case "bread": pet.setBreed((String) value); break;
-                    case "discription": pet.setDescription((String) value); break;
-                    case "status": pet.setStatus((String) value); break;
+                    case "category": pet.setCategory((String) value); break;
+                    case "breed": pet.setBreed((String) value); break;
+                    case "description": pet.setDescription((String) value); break;
+                    case "status": pet.setStatus(Pet.PetStatus.valueOf((String) value)); break;
                     case "amount": pet.setAmount((Integer) value); break;
                     case "imageUrl": pet.setImageUrl((String) value); break;
                 }

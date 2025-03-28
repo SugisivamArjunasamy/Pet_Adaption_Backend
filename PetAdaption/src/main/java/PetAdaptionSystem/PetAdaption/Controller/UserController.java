@@ -34,8 +34,13 @@ public class UserController {
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        if (user.getUserName() == null || user.getUserName().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Collections.singletonMap("error", "Username cannot be null or empty"));
+        }
+
+        User savedUser = userService.addUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PatchMapping("/{id}")

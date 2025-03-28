@@ -4,55 +4,61 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "User")
 public class User {
 
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    @Getter
+    private Long userId;
 
+    @Getter
+    @Setter
     @Column(nullable = false, length = 100)
     private String username;
 
-    @Setter
     @Getter
+    @Setter
     @Column(nullable = false, length = 200)
     private String address;
 
-    @Setter
     @Getter
+    @Setter
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
-    @Setter
     @Getter
+    @Setter
     @Column(nullable = false)
-    private String password = "default_password";
+    private String password;
 
-    @Setter
     @Getter
+    @Setter
     @Column(nullable = false, length = 50)
     private String role;
 
-    // ✅ One-to-Many relationship with Pet
-    @Setter
-    @Getter
+    // ✅ Correct One-to-Many relationship with Pet
     @OneToMany(mappedBy = "adoptedBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Pet> adoptedPets;
 
     public User() {}
 
-    public User(String userName, String address, String email, String password, String role) {
-        this.username = userName;
+    public User(String username, String address, String email, String password, String role) {
+        this.username = username;
         this.address = address;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    public String getUserName() { return username; }
-    public void setUserName(String userName) { this.username = userName; }
+    public void setUsername(Object userName) {
+        this.username  = (String) userName;
+    }
+
+    public String getUserName() {
+        return username;
+    }
 }

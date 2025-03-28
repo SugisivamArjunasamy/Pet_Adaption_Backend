@@ -1,35 +1,54 @@
 package PetAdaptionSystem.PetAdaption.Entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "Adoption_Requests")
+@Table(name = "adoption_requests")
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdoptionRequest {
 
+    public enum RequestStatus {
+        PENDING,
+        APPROVED,
+        REJECTED
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int requestId;
+    private Long requestId;
 
-    @ManyToOne
-    @JoinColumn(name = "pet_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "petId", nullable = false)
     private Pet pet;
 
-    @Column(nullable = false, length = 100)
-    @NotBlank(message = "Adopter name is required")
-    private String adopterName;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
-    @Column(nullable = false, length = 100)
-    @Email(message = "Invalid email format")
-    @NotBlank(message = "Adopter email is required")
-    private String adopterEmail;
-
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String status = "Pending";
+    private RequestStatus status;
+
+    @Column(nullable = false)
+    private LocalDateTime requestDate;
+
+    @PrePersist
+    protected void onCreate() {
+        if (status == null) {
+            status = RequestStatus.PENDING;
+        }
+        if (requestDate == null) {
+            requestDate = LocalDateTime.now();
+        }
+    }
+
+    public void setPetId(int petId) { }
+
+    public  void setUserId(int userId) {}
 
 }

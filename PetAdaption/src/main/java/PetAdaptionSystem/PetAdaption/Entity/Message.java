@@ -16,24 +16,38 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
 
-    @Column(nullable = false)
-    private Long senderId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id", nullable = false)
+    private User sender;
 
-    @Column(nullable = false)
-    private Long receiverId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver_id", nullable = false)
+    private User receiver;
 
     @Column(nullable = false, length = 1000)
     @NotBlank(message = "Message content cannot be empty")
     private String content;
 
     @Column(nullable = false)
-    private LocalDateTime timestamp = LocalDateTime.now();
+    private LocalDateTime timestamp;
 
     @Column(nullable = false)
-    private boolean isRead = false;
-
+    private boolean isRead = false; // Default value set to false
 
     @ManyToOne
     @JoinColumn(name = "reply_to_id")
     private Message replyTo;
+
+    @PrePersist
+    protected void onCreate() {
+        if (timestamp == null) {
+            timestamp = LocalDateTime.now();
+        }
+    }
+
+    public void setSenderId(Long senderId) {
+    }
+
+    public void setReceiverId(Long receiverId) {
+    }
 }

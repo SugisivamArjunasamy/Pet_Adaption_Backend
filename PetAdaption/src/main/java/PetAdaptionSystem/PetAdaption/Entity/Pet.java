@@ -11,6 +11,12 @@ import jakarta.validation.constraints.*;
 @AllArgsConstructor
 public class Pet {
 
+    public enum PetStatus {
+        AVAILABLE,
+        ADOPTED,
+        PENDING
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long petId;
@@ -35,16 +41,15 @@ public class Pet {
     @NotBlank(message = "Description is required")
     private String description;
 
-    @Column(nullable = false, length = 100)
-    @NotBlank(message = "Status is required")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private PetStatus status;
 
     @Column(nullable = false)
     @Min(value = 0, message = "Amount cannot be negative")
     private int amount;
 
     @Column(length = 255)
-    @NotBlank(message = "Image URL is required")
     private String imageUrl;
 
     // ✅ Corrected Many-to-One mapping with User

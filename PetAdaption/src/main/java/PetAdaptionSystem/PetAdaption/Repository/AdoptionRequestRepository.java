@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AdoptionRequestRepository extends JpaRepository<AdoptionRequest, Integer> {
-    List<AdoptionRequest> findByStatus(String status);
+public interface AdoptionRequestRepository extends JpaRepository<AdoptionRequest, Long> {
+    List<AdoptionRequest> findByStatus(AdoptionRequest.RequestStatus status);
+    List<AdoptionRequest> findByUser_UserId(Long userId);
+    List<AdoptionRequest> findByPet_PetId(Long petId);
 }

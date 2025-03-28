@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
+        return userRepository.findById((long) id);
     }
 
     public Optional<User> getUserByEmail(String email) {
@@ -31,8 +31,8 @@ public class UserService {
     }
 
     public Optional<User> updateUser(int id, User updatedUser) {
-        return userRepository.findById(id).map(user -> {
-            user.setUserName(updatedUser.getUserName());  // Fixed setter
+        return userRepository.findById((long) id).map(user -> {
+            user.setUsername(updatedUser.getUserName());  // Fixed setter
             user.setAddress(updatedUser.getAddress());
             user.setEmail(updatedUser.getEmail());
             user.setRole(updatedUser.getRole());
@@ -41,8 +41,8 @@ public class UserService {
     }
 
     public void deleteUser(int id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
+        if (userRepository.existsById((long) id)) {
+            userRepository.deleteById((long) id);
         }
     }
 }
