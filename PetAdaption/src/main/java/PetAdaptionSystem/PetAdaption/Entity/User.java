@@ -40,7 +40,6 @@ public class User {
     @Column(nullable = false, length = 50)
     private String role;
 
-    // ✅ Correct One-to-Many relationship with Pet
     @OneToMany(mappedBy = "adoptedBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Pet> adoptedPets;
 
