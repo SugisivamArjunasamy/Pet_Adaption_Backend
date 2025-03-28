@@ -46,4 +46,9 @@ public class Pet {
     @Column(length = 255)
     @NotBlank(message = "Image URL is required")
     private String imageUrl;
+
+    // ✅ Corrected Many-to-One mapping with User
+    @ManyToOne
+    @JoinColumn(name = "user_id") // This links the pet to an adopter (user)
+    private User adoptedBy;
 }

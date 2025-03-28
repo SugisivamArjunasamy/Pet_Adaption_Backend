@@ -3,11 +3,11 @@ package PetAdaptionSystem.PetAdaption.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 @Entity
-@Table(name="User")
+@Table(name = "User")
 public class User {
-
 
     @Getter
     @Id
@@ -37,6 +37,11 @@ public class User {
     @Column(nullable = false, length = 50)
     private String role;
 
+    // ✅ One-to-Many relationship with Pet
+    @Setter
+    @Getter
+    @OneToMany(mappedBy = "adoptedBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Pet> adoptedPets;
 
     public User() {}
 
@@ -50,5 +55,4 @@ public class User {
 
     public String getUserName() { return username; }
     public void setUserName(String userName) { this.username = userName; }
-
 }

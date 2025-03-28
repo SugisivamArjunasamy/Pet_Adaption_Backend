@@ -1,14 +1,12 @@
 package PetAdaptionSystem.PetAdaption.Controller;
 
 import PetAdaptionSystem.PetAdaption.Entity.User;
+import PetAdaptionSystem.PetAdaption.Entity.Pet;
 import PetAdaptionSystem.PetAdaption.Service.UserService;
+import PetAdaptionSystem.PetAdaption.Repository.PetRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
-
-
-import java.util.List;
-import java.util.Optional;
 import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -17,9 +15,11 @@ import java.util.*;
 public class UserController {
 
     private final UserService userService;
+    private final PetRepository petRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PetRepository petRepository) {
         this.userService = userService;
+        this.petRepository = petRepository;
     }
 
     @GetMapping
@@ -53,18 +53,19 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
-    @GetMapping("auth/{email}")
-    public ResponseEntity<Map<String, String>> login(@PathVariable String email) {
+
+    @GetMapping("/auth/{email}")
+    public ResponseEntity<Map<String, Object>> login(@PathVariable String email) {
         Optional<User> user = userService.getUserByEmail(email);
 
         if (user.isPresent()) {
             User foundUser = user.get();
-
-
-            Map<String, String> response = new HashMap<>();
+            Map<String, Object> response = new HashMap<>();
+            response.put("userId", foundUser.getUserId());
+            response.put("username", foundUser.getUserName());
             response.put("email", foundUser.getEmail());
-            response.put("password", foundUser.getPassword());
-
+            response.put("role", foundUser.getRole());
+            response.put("password",foundUser.getPassword());
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -72,5 +73,15 @@ public class UserController {
         }
     }
 
+    @GetMapping("{userId}/adopted-pets") // Ensure "adopted-pets" (plural)
+    public ResponseEntity<?> getAdoptedPets(@PathVariable Long userId) {
+        List<Pet> adoptedPets = petRepository.findByAdoptedBy_UserId(userId);
+
+        if (adoptedPets.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("message", "No adopted pets found"));
+        }
+
+        return ResponseEntity.ok(adoptedPets);
+    }
 
 }

@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -31,18 +30,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(int id) {
-        userRepository.deleteById(id);
-    }
-
     public Optional<User> updateUser(int id, User updatedUser) {
         return userRepository.findById(id).map(user -> {
-            user.setUserName(updatedUser.getUserName());
+            user.setUserName(updatedUser.getUserName());  // Fixed setter
             user.setAddress(updatedUser.getAddress());
             user.setEmail(updatedUser.getEmail());
-            user.setPassword(updatedUser.getPassword());
             user.setRole(updatedUser.getRole());
             return userRepository.save(user);
         });
+    }
+
+    public void deleteUser(int id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        }
     }
 }
